@@ -169,7 +169,13 @@ a{text-decoration:none;color:inherit}
 
 @media(max-width: 768px) {
   .hero-agent-img {
-    display: none;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%); /* Centra la imagen horizontalmente */
+    height: 85vh; /* Se adapta a la altura del celular */
+    opacity: 0.15; /* Baja la opacidad para que se funda como fondo */
+    z-index: 1; /* Asegura que quede por detrás del texto y los logos (que tienen z-index: 2) */
+    object-position: center bottom; /* Alinea al agente al centro y abajo */
   }
 }
 
