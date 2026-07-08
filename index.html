@@ -123,8 +123,8 @@ a{text-decoration:none;color:inherit}
   66% { transform: translate(-15%, 25%) scale(0.8); }
   100% { transform: translate(15%, -15%) scale(1.1); }
 }
-.hero-wrap{position:relative;z-index:2;width:100%;display:flex;justify-content:center;padding-top:3rem}
-.hero-center{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:1000px}
+.hero-wrap{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;justify-content:flex-end;align-items:center;padding:0 5%}
+.hero-center{display:flex;flex-direction:column;align-items:center;text-align:center;width:65%;max-width:800px;margin-top:5rem}
 .agent-pill{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);padding:6px 20px 6px 6px;border-radius:50px;backdrop-filter:blur(12px);margin-bottom:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,.2)}
 .agent-pill img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1px solid var(--gold)}
 .agent-pill span{font-size:.78rem;font-weight:500;color:var(--white);letter-spacing:.06em;text-transform:uppercase}
@@ -132,7 +132,7 @@ a{text-decoration:none;color:inherit}
 .hero-h1 em{font-style:italic;color:transparent;background:linear-gradient(180deg,#fff 0%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text}
 .btn-epic{display:inline-flex;background:linear-gradient(135deg,var(--gold) 0%,#a6811a 100%);color:var(--deep);font-size:1.05rem;font-weight:600;padding:1.4rem 3.5rem;border-radius:100px;text-transform:uppercase;letter-spacing:.15em;transition:all .4s var(--ease);box-shadow:0 12px 35px rgba(201,168,76,.35),inset 0 2px 0 rgba(255,255,255,.3)}
 .btn-epic:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 20px 50px rgba(201,168,76,.5),inset 0 2px 0 rgba(255,255,255,.3)}
-.trust-bar{margin-top:6rem;display:flex;align-items:center;gap:3rem;background:rgba(1,21,61,.35);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.08);padding:1rem 3.5rem;border-radius:100px;box-shadow:0 20px 40px rgba(0,0,0,.3);width:100%;max-width:1200px;box-sizing:border-box}
+.trust-bar{margin-top:4rem;display:flex;align-items:center;gap:3rem;background:rgba(1,21,61,.35);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.08);padding:1.5rem 2.5rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.3);width:100%;max-width:1200px;box-sizing:border-box}
 .trust-stat{display:flex;align-items:baseline;gap:10px}
 .trust-num{font-family:var(--f-d);font-size:2.2rem;font-weight:400}
 .trust-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:500}
@@ -140,37 +140,19 @@ a{text-decoration:none;color:inherit}
 .trust-brands{display:flex;gap:1rem}
 .trust-brands span{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--white);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.45rem 1rem;border-radius:50px}
 /* ============================================================  AGENTE HERO IMG  */
-.hero-agent-img {
-  position: absolute;
-  bottom: 0;
-  left: 0; /* Completamente pegado a la pared izquierda */
-  height:112vh; /* Imagen mucho más grande */
-  max-height: none; /* Quitamos el límite para que escale bien en monitores grandes */
-  object-fit: contain;
-  object-position: left bottom; /* Fuerza a la imagen a anclarse en la esquina inferior izquierda */
-  z-index: 2;
-  pointer-events: none;
-  filter: drop-shadow(15px 0px 30px rgba(0,0,0,0.4));
-}
-
-@media(min-width: 1200px) {
-  .hero-center {
-    margin-left: 15%; 
-  }
-}
+.hero-agent-img{position:absolute;bottom:0;left:0;height:clamp(65vh,85vh,1000px);max-width:45vw;object-fit:contain;object-position:left bottom;z-index:3;pointer-events:none;filter:drop-shadow(15px 0px 30px rgba(0,0,0,0.4))}
 
 @media(max-width: 1024px) {
-  .hero-agent-img {
-    height: 75vh;
-    left: -15%;
-    opacity: 0.3;
-  }
+  .hero-wrap { justify-content: center; }
+  .hero-center { width: 100%; }
+  .hero-agent-img { max-width: none; height: 70vh; left: -10%; opacity: 0.25; z-index: 1; }
 }
 
 @media(max-width: 768px) {
-  .hero-agent-img {
-    display: none;
-  }
+  .hero-h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
+  .hero-agent-img { display: none; }
+  .trust-bar { padding: 1.5rem; gap: 20px; }
+  .logos-track img { max-height: 30px !important; }
 }
 
 /* ============================================================  PARTÍCULAS FLOTANTES  */
@@ -222,8 +204,8 @@ a{text-decoration:none;color:inherit}
 
 /* ============================================================  LOGOS  */
 .logos-sec{background:var(--deep);padding:2.5rem 0;border-bottom:1px solid var(--border)}
-.logos-track{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:nowrap;width:100%}
-.logos-track img{height:38px;max-width:100%;flex-shrink:1;object-fit:contain;filter:brightness(0) invert(1);opacity:.5;transition:all .3s ease}
+.logos-track{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;width:100%}
+.logos-track img{height:auto!important;max-height:40px!important;max-width:100%;flex-shrink:0;object-fit:contain;filter:brightness(0) invert(1);opacity:.6;transition:all .3s ease}
 .logos-track img:hover{filter:none;opacity:1;transform:scale(1.06)}
 .logo-chip{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.45rem 1.1rem;border-radius:50px;transition:all .25s}
 .logo-chip:hover{color:var(--white);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2)}
@@ -416,15 +398,13 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
 
       <div class="trust-bar sr d4">
     <div class="wrap logos-track sr">
-    <img src="metlife.png" alt="MetLife" style="height:76px;">
-    <img src="bupa.png" alt="Bupa" style="height:86px;">
-    <img src="zurich.png" alt="Zurich" style="height: 110px;">
-    <img src="https://http2.mlstatic.com/storage/cx-support-fcm-api/fcm-pub-os-prod/cx-support-mario-frontend/marlreyes/logo-prudential.png" alt="Prudential" style="height: 30px;">
-    <img src="gnp.png" style="height: 30px;">
-    <img src="axa.png" alt="AXA" style="height: 70px;">
-  
-    
-      </div>
+      <img src="metlife.png" alt="MetLife">
+      <img src="bupa.png" alt="Bupa">
+      <img src="zurich.png" alt="Zurich">
+      <img src="https://http2.mlstatic.com/storage/cx-support-fcm-api/fcm-pub-os-prod/cx-support-mario-frontend/marlreyes/logo-prudential.png" alt="Prudential">
+      <img src="gnp.png" alt="GNP">
+      <img src="axa.png" alt="AXA">
+    </div>
       </div>
 
 
