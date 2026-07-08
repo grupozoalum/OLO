@@ -77,8 +77,52 @@ a{text-decoration:none;color:inherit}
 
 /* ============================================================  HERO  */
 #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--main)}
-.hero-aurora{position:absolute;inset:-20%;background:radial-gradient(circle at 50% 0%,rgba(26,111,196,.25) 0%,transparent 45%),radial-gradient(ellipse at 50% 100%,rgba(201,168,76,.12) 0%,transparent 55%);filter:blur(60px);z-index:1;animation:aurora 12s ease-in-out infinite alternate}
-@keyframes aurora{0%{transform:scale(1) translateY(0)}100%{transform:scale(1.1) translateY(-30px)}}
+/* ============================================================  EFECTO LAVA METLIFE  */
+.hero-aurora {
+  position: absolute;
+  inset: -30%; /* Más espacio para que la lava fluya fuera de los bordes */
+  z-index: 1;
+  filter: blur(120px); /* Desenfoque extremo para mezclar los colores como líquido */
+  opacity: 0.65; /* Opacidad al 65% para no opacar el texto blanco. Súbela si lo quieres más neón */
+  pointer-events: none;
+}
+
+/* Creamos dos "bolsas" de líquido usando pseudo-elementos */
+.hero-aurora::before,
+.hero-aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  animation: lavaMove 18s infinite alternate ease-in-out;
+}
+
+/* Blob 1: Azul vibrante MetLife */
+.hero-aurora::before {
+  width: 55vw;
+  height: 55vw;
+  top: 0%;
+  left: 0%;
+  background: #0090DA; 
+}
+
+/* Blob 2: Verde lima MetLife */
+.hero-aurora::after {
+  width: 50vw;
+  height: 50vw;
+  bottom: 0%;
+  right: 0%;
+  background: #A4D65E; 
+  animation-delay: -9s; /* Desfase para que no se muevan al mismo tiempo */
+  animation-duration: 22s;
+}
+
+/* La trayectoria orgánica de la lava */
+@keyframes lavaMove {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(25%, 15%) scale(1.3); }
+  66% { transform: translate(-15%, 25%) scale(0.8); }
+  100% { transform: translate(15%, -15%) scale(1.1); }
+}
 .hero-wrap{position:relative;z-index:2;width:100%;display:flex;justify-content:center;padding-top:3rem}
 .hero-center{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:1000px}
 .agent-pill{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);padding:6px 20px 6px 6px;border-radius:50px;backdrop-filter:blur(12px);margin-bottom:2.5rem;box-shadow:0 10px 30px rgba(0,0,0,.2)}
@@ -95,6 +139,86 @@ a{text-decoration:none;color:inherit}
 .trust-div{width:1px;height:35px;background:rgba(255,255,255,.12)}
 .trust-brands{display:flex;gap:1rem}
 .trust-brands span{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--white);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.45rem 1rem;border-radius:50px}
+/* ============================================================  AGENTE HERO IMG  */
+.hero-agent-img {
+  position: absolute;
+  bottom: 0;
+  left: 0; /* Completamente pegado a la pared izquierda */
+  height:112vh; /* Imagen mucho más grande */
+  max-height: none; /* Quitamos el límite para que escale bien en monitores grandes */
+  object-fit: contain;
+  object-position: left bottom; /* Fuerza a la imagen a anclarse en la esquina inferior izquierda */
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(15px 0px 30px rgba(0,0,0,0.4));
+}
+
+@media(min-width: 1200px) {
+  .hero-center {
+    margin-left: 15%; 
+  }
+}
+
+@media(max-width: 1024px) {
+  .hero-agent-img {
+    height: 75vh;
+    left: -15%;
+    opacity: 0.3;
+  }
+}
+
+@media(max-width: 768px) {
+  .hero-agent-img {
+    display: none;
+  }
+}
+
+/* ============================================================  PARTÍCULAS FLOTANTES  */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* Flotan por encima del fondo de lava pero detrás del texto principal */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-particles i {
+  position: absolute;
+  bottom: -20px;
+  background: rgba(255, 255, 255, 0.25); /* Color blanco semi-transparente estilo destello */
+  border-radius: 50%;
+  animation: floatUp infinite linear;
+}
+
+/* Tamaños, posiciones horizontales y velocidades aleatorias para cada partícula */
+.hero-particles i:nth-child(1) { left: 15%; width: 4px; height: 4px; animation-duration: 14s; animation-delay: 0s; }
+.hero-particles i:nth-child(2) { left: 30%; width: 6px; height: 6px; animation-duration: 18s; animation-delay: 3s; background: rgba(164, 214, 94, 0.3); /* Toque verde MetLife */ }
+.hero-particles i:nth-child(3) { left: 45%; width: 3px; height: 3px; animation-duration: 12s; animation-delay: 1s; }
+.hero-particles i:nth-child(4) { left: 60%; width: 5px; height: 5px; animation-duration: 16s; animation-delay: 5s; }
+.hero-particles i:nth-child(5) { left: 75%; width: 4px; height: 4px; animation-duration: 15s; animation-delay: 2s; background: rgba(0, 144, 218, 0.3); /* Toque azul MetLife */ }
+.hero-particles i:nth-child(6) { left: 90%; width: 7px; height: 7px; animation-duration: 22s; animation-delay: 4s; }
+.hero-particles i:nth-child(7) { left: 22%; width: 3px; height: 3px; animation-duration: 13s; animation-delay: 7s; }
+.hero-particles i:nth-child(8) { left: 52%; width: 5px; height: 5px; animation-duration: 17s; animation-delay: 9s; }
+.hero-particles i:nth-child(9) { left: 68%; width: 4px; height: 4px; animation-duration: 14s; animation-delay: 6s; }
+.hero-particles i:nth-child(10) { left: 82%; width: 6px; height: 6px; animation-duration: 19s; animation-delay: 1s; }
+
+/* Animación de ascenso con un suave balanceo de izquierda a derecha (translateX) */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(60px);
+    opacity: 0;
+  }
+}
 
 /* ============================================================  LOGOS  */
 .logos-sec{background:var(--deep);padding:2.5rem 0;border-bottom:1px solid var(--border)}
@@ -257,7 +381,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
 
 <!-- ====================== NAV ====================== -->
 <nav id="nav">
-  <a href="#" class="nav-logo"><span class="nav-dot"></span>Oscar Javier</a>
+  <a href="#" class="nav-logo"><span class="nav-dot"></span>Oscar Javier Vistrain</a>
   <ul class="nav-links">
     <li><a href="#about">Mi Perfil</a></li>
     <li><a href="#services">Productos</a></li>
@@ -271,26 +395,31 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
 <!-- ====================== HERO ====================== -->
 <section id="hero">
   <div class="hero-aurora"></div>
+      <img src="oscar_2.png" alt="Óscar Javier" class="hero-agent-img sr d2">
+        <div class="hero-particles">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
   <div class="wrap hero-wrap">
     <div class="hero-center">
 
       <div class="agent-pill sr">
         <img src="https://bio.linkcdn.cc/upload/2025091118/175761492100022597.jpg" alt="Óscar Javier">
-        <span>Óscar J. Vistrain · Agente Certificado</span>
+        
+        <span>Mercadologo - Agente de Seguros</span>
       </div>
 
       <h1 class="hero-h1 sr d1">
         Protege lo que<br><em>más importa</em>
       </h1>
 
-      <a href="#chatbot" class="btn-epic sr d2">Cotiza tu futuro</a>
+      <a href="#services" class="btn-epic sr d2">Cotiza tu futuro</a>
 
       <div class="trust-bar sr d4">
     <div class="wrap logos-track sr">
     <img src="metlife.png" alt="MetLife" style="height:76px;">
     <img src="bupa.png" alt="Bupa" style="height:86px;">
     <img src="zurich.png" alt="Zurich" style="height: 110px;">
-    <img src="https://http2.mlstatic.com/storage/cx-support-fcm-api/fcm-pub-os-prod/cx-support-mario-frontend/marlreyes/logo-prudential.png" alt="Prudential" style="height: 50px;">
+    <img src="https://http2.mlstatic.com/storage/cx-support-fcm-api/fcm-pub-os-prod/cx-support-mario-frontend/marlreyes/logo-prudential.png" alt="Prudential" style="height: 30px;">
     <img src="gnp.png" style="height: 30px;">
     <img src="axa.png" alt="AXA" style="height: 70px;">
   
@@ -310,27 +439,27 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
           <img src="https://bio.linkcdn.cc/upload/2025091118/175761492100022597.jpg" alt="Óscar Javier Vistrain Aboytes">
         </div>
         <div class="about-badge">
-          <span class="badge-num">10+</span>
+          <span class="badge-num">14</span>
           <span class="badge-lbl">Años de trayectoria</span>
         </div>
       </div>
       <div>
-        <span class="eyebrow sr">Mi perfil</span>
-        <h2 class="t-d about-h sr d1">Cada familia merece<br>un futuro <em>seguro</em></h2>
-        <p class="t-lead sr d2">Soy Óscar Javier Vistrain Aboytes. Trabajo con las aseguradoras más sólidas del mercado para ofrecerte soluciones reales: desde proteger tu auto y tu salud, hasta construir tu retiro con Prudential.</p>
+        <span class="eyebrow sr">Mi Historia</span>
+        <h2 class="t-d about-h sr d1">Tu futuro no es un<br>sueño es una <em>DECISION</em></h2>
+        <p class="t-lead sr d2">Soy Óscar Javier. Estudie la Lic. en Mercadotecnia porque desde niño me apasionan las ventas. Despues de 10 años de trabajar como Godin. Inicie en el Mundo de los Seguros con una mision clara: Identificar el ADN de mi cliente, estudiar y analizar las vantajas al igual que las desventajas de los diferentes tipos de seguros en Mexico para asi poder diseñar una estrategia inteligente en el proyecto de vida que requiere</p>
         <p class="t-lead sr d2" style="margin-top:.9rem;">No vendo pólizas: diseño estrategias personalizadas para cada etapa de tu vida.</p>
         <div class="stats-grid">
           <div class="stat-c sr d2">
-            <span class="stat-n">PRU</span>
-            <span class="stat-l">Agente Prudential certificado · Vida, Ahorro y Retiro</span>
+            <span class="stat-n">DAÑOS</span>
+            <span class="stat-l">Quálitas/ GNP / Zurich, HDI, Chubb</span>
           </div>
           <div class="stat-c sr d3">
-            <span class="stat-n">GMM</span>
-            <span class="stat-l">MetLife y Bupa · Gastos Médicos Mayores</span>
+            <span class="stat-n">VIDA</span>
+            <span class="stat-l">Prudential</span>
           </div>
           <div class="stat-c sr d3">
-            <span class="stat-n">9+</span>
-            <span class="stat-l">Aseguradoras de auto en tu cotización</span>
+            <span class="stat-n">SALUD</span>
+            <span class="stat-l">MetLife, Bupa</span>
           </div>
           <div class="stat-c sr d4">
             <span class="stat-n">24/7</span>
