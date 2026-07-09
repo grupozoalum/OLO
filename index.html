@@ -179,9 +179,28 @@ a{text-decoration:none;color:inherit}
   }
 
   .hero-center {
-    margin-left: 20%; /* Empujamos todo el bloque de texto y botón hacia la derecha */
+    width: 100%;
+    margin-left: 0;
+    padding-left: 30%; /* Deja libre el tercio izquierdo para la foto */
+    padding-right: 5%; /* Margen derecho de seguridad */
+    box-sizing: border-box; /* CLAVE: Obliga al texto a ajustarse como en Word sin salirse de la pantalla */
+    align-items: flex-end; /* Alinea el botón y la etiqueta hacia la derecha */
+    text-align: right; /* Alinea el texto a la derecha */
     position: relative;
-    z-index: 2; /* Aseguramos que el texto esté por encima de la imagen */
+    z-index: 2;
+  }
+
+  .hero-h1 {
+    font-size: clamp(2.5rem, 10vw, 3.5rem); /* Ajuste de tamaño para los 3 renglones */
+    line-height: 1.05;
+    word-wrap: break-word; /* Refuerza el ajuste de texto automático */
+    white-space: normal;
+    margin-bottom: 2rem;
+  }
+
+  .btn-epic {
+    font-size: 0.82rem; /* Texto del botón más pequeño */
+    padding: 1rem 2.2rem; /* Reduce el tamaño del botón en móvil */
   }
 }
 
