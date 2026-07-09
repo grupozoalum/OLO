@@ -170,17 +170,18 @@ a{text-decoration:none;color:inherit}
 @media(max-width: 768px) {
   .hero-agent-img {
     display: block;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 75vh;
-    opacity: 0.08; /* Opacidad bajísima, casi un fantasma en el fondo azul */
-    z-index: 0; /* Totalmente al fondo */
+    left: -5%; /* Lo ancla hacia el lado izquierdo (puedes ajustar este valor) */
+    transform: none; /* Quitamos el forzado al centro */
+    height: 75vh; /* Se adapta a la altura del celular */
+    opacity: 0.95; /* Se mantiene como fondo sutil para no tapar lectura */
+    z-index: 1; /* Queda por detrás del texto */
+    object-position: left bottom; /* Asegura que la imagen se alinee a la izquierda y abajo */
   }
+
   .hero-center {
-    margin: 0 auto; /* Centramos el texto de nuevo */
-    width: 100%;
+    margin-left: 20%; /* Empujamos todo el bloque de texto y botón hacia la derecha */
     position: relative;
-    z-index: 2;
+    z-index: 2; /* Aseguramos que el texto esté por encima de la imagen */
   }
 }
 
