@@ -836,143 +836,113 @@ function toggleChat() {
     setTimeout(() => document.getElementById('chat-input').focus(), 100);
   }
 }
-/* ----  CHATBOT (llamada al API de Anthropic)  ----
- * ⚠️ FASE DE PRUEBA: La API key queda expuesta en el cliente.
- * Antes de publicar a producción, mueve esta lógica a un backend
- * (Cloud Function, Edge Function, etc.) y deja aquí solo el fetch a tu backend.
- */
-const API_KEY  = 'TU_API_KEY_AQUI';   // ← reemplaza solo para pruebas locales
-const MODEL    = 'claude-sonnet-4-6';
+</script>
 
-const SYSTEM = `Eres el asistente virtual de Óscar Javier Vistrain Aboytes, agente de seguros certificado en México.
+<!-- ----  CHATBOT (Firebase Cloud Functions)  ---- -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js";
 
-PRODUCTOS QUE OFRECE OSCAR:
-1. GASTOS MÉDICOS MAYORES (GMM)
-   - MetLife: plan MédicaLife y Seguro Indemnizatorio
-   - Bupa: Nacional Vital y Nacional Plus (red Vitamédica + Hospital Bité Médica)
-2. SEGURO DE VIDA (Prudential desde 2006 en México)
-   - Protección Familiar
-   - Protección Estratégica para Personas
-   - Componente de ahorro e inversión
-3. AHORRO & RETIRO (Prudential)
-   - Plan de Ahorro
-   - Ahorro & Retiro Flexible
-   - Planes Personales de Retiro (PPR, deducibles de impuestos)
-   - Plan de Educación
-   - Desde $1,000 MXN/mes con liquidez parcial
-4. SEGURO DE AUTO
-   - 9 aseguradoras: Quálitas, Ana Seguros, Banorte, GNP, Zurich, AXA, Mapfre, HDI, Chubb
-   - Cobertura amplia o limitada
+  // Config de Firebase: es seguro que este objeto sea público en el cliente,
+  // la protección real va en las reglas de Firestore / App Check, no aquí.
+  const firebaseConfig = {
+    apiKey: "AIzaSyDXmwC5577FJ4nO7wR4d0QS5aZaiwb6Mw8",
+    authDomain: "pruebas-80a12.firebaseapp.com",
+    projectId: "pruebas-80a12",
+    storageBucket: "pruebas-80a12.firebasestorage.app",
+    messagingSenderId: "337416174160",
+    appId: "1:337416174160:web:ea5ce168854d880b59af55"
+  };
 
-CONTACTO DE OSCAR:
-- WhatsApp: +52 55 1705 1128  →  wa.me/525517051128
-- Email: oscar.vistrain@gmail.com
-- Instagram: @oscar_javier_79
-- Facebook: facebook.com/share/1M2JjCqgMi/
+  const app = initializeApp(firebaseConfig);
+  const functions = getFunctions(app); // si tu función está en otra región, pásala aquí: getFunctions(app, "us-central1")
+  const chatSeguros = httpsCallable(functions, "chatSeguros");
 
-CÓMO RESPONDER:
-- Siempre en español, tono amigable y profesional
-- Respuestas cortas y directas (máximo 3 párrafos)
-- Usa máximo 1-2 emojis por respuesta
-- No inventes precios exactos; sí puedes dar rangos orientativos
-- Cuando el usuario esté listo, invítalo a contactar a Oscar por WhatsApp
-- Nunca menciones eventos, bodas, fiestas u otros servicios ajenos a seguros`;
+  // Conservamos el conversationId entre mensajes (y opcionalmente entre visitas)
+  // para que Firestore agrupe todo bajo la misma conversación.
+  let conversationId = localStorage.getItem("seguros_conversation_id") || null;
+  let loading = false;
 
-let history = [];
-let loading  = false;
-
-function addBubble(text, side) {
-  const b = document.getElementById('chat-body');
-  const d = document.createElement('div');
-  d.className = `bubble ${side}`;
-  d.textContent = text;
-  d.style.cssText = 'opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s';
-  b.appendChild(d);
-  b.scrollTop = b.scrollHeight;
-  requestAnimationFrame(() => { d.style.opacity='1'; d.style.transform='none'; });
-}
-
-function showTyping() {
-  const b = document.getElementById('chat-body');
-  const d = document.createElement('div');
-  d.id = 'typing'; d.className = 'b-typing';
-  d.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
-  b.appendChild(d); b.scrollTop = b.scrollHeight;
-}
-function hideTyping() { const el = document.getElementById('typing'); if(el) el.remove(); }
-
-async function sendMsg() {
-  if (loading) return;
-  const inp  = document.getElementById('chat-input');
-  const text = inp.value.trim();
-  if (!text) return;
-
-  inp.value = '';
-  loading   = true;
-  document.getElementById('chat-send-btn').disabled = true;
-
-  addBubble(text, 'bo');
-  history.push({ role:'user', content:text });
-  showTyping();
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 400,
-        system: SYSTEM,
-        messages: history
-      })
-    });
-
-    hideTyping();
-
-    if (!res.ok) throw new Error('API error');
-
-    const data   = await res.json();
-    const reply  = data.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
-    history.push({ role:'assistant', content:reply });
-    addBubble(reply, 'bi');
-
-    // Botón de WhatsApp si hay intención de contacto
-    if (/whatsapp|cotización|cita|contacta/i.test(reply)) {
-      setTimeout(() => {
-        const b = document.getElementById('chat-body');
-        const a = document.createElement('a');
-        a.href = 'https://wa.me/525517051128?text=Hola%20Oscar%2C%20vengo%20del%20chat%20de%20tu%20página%20y%20me%20interesa%20una%20cotización';
-        a.target = '_blank'; a.rel = 'noopener';
-        a.style.cssText = 'align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.1rem;background:#25d366;color:#fff;border-radius:10px;font-size:.76rem;font-weight:600;margin-top:.25rem;transition:background .2s';
-        a.innerHTML = '📲 Contactar a Oscar por WhatsApp';
-        a.onmouseenter = () => a.style.background='#1da851';
-        a.onmouseleave = () => a.style.background='#25d366';
-        b.appendChild(a); b.scrollTop = b.scrollHeight;
-      }, 500);
-    }
-
-  } catch(err) {
-    hideTyping();
-    addBubble('Hubo un problema de conexión. Contáctame directamente: wa.me/525517051128 📲', 'bi');
-    console.error(err);
-  } finally {
-    loading = false;
-    document.getElementById('chat-send-btn').disabled = false;
-    inp.focus();
+  function addBubble(text, side) {
+    const b = document.getElementById('chat-body');
+    const d = document.createElement('div');
+    d.className = `bubble ${side}`;
+    d.textContent = text;
+    d.style.cssText = 'opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s';
+    b.appendChild(d);
+    b.scrollTop = b.scrollHeight;
+    requestAnimationFrame(() => { d.style.opacity='1'; d.style.transform='none'; });
   }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  const inp = document.getElementById('chat-input');
-  if (inp) inp.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+  function showTyping() {
+    const b = document.getElementById('chat-body');
+    const d = document.createElement('div');
+    d.id = 'typing'; d.className = 'b-typing';
+    d.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
+    b.appendChild(d); b.scrollTop = b.scrollHeight;
+  }
+  
+  function hideTyping() { 
+    const el = document.getElementById('typing'); 
+    if(el) el.remove(); 
+  }
+
+  async function sendMsg() {
+    if (loading) return;
+    const inp  = document.getElementById('chat-input');
+    const text = inp.value.trim();
+    if (!text) return;
+
+    inp.value = '';
+    loading = true;
+    document.getElementById('chat-send-btn').disabled = true;
+
+    addBubble(text, 'bo');
+    showTyping();
+
+    try {
+      const { data } = await chatSeguros({ message: text, conversationId, origen: "sitio_web" });
+
+      hideTyping();
+      addBubble(data.reply, 'bi');
+
+      if (data.conversationId) {
+        conversationId = data.conversationId;
+        localStorage.setItem("seguros_conversation_id", conversationId);
+      }
+
+      if (/whatsapp|cotizaci[oó]n|cita|contacta/i.test(data.reply)) {
+        setTimeout(() => {
+          const b = document.getElementById('chat-body');
+          const a = document.createElement('a');
+          a.href = 'https://wa.me/525517051128?text=Hola%20Oscar%2C%20vengo%20del%20chat%20de%20tu%20p%C3%A1gina%20y%20me%20interesa%20una%20cotizaci%C3%B3n';
+          a.target = '_blank'; a.rel = 'noopener';
+          a.style.cssText = 'align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.1rem;background:#25d366;color:#fff;border-radius:10px;font-size:.76rem;font-weight:600;margin-top:.25rem;transition:background .2s';
+          a.innerHTML = '📲 Contactar a Oscar por WhatsApp';
+          a.onmouseenter = () => a.style.background='#1da851';
+          a.onmouseleave = () => a.style.background='#25d366';
+          b.appendChild(a); b.scrollTop = b.scrollHeight;
+        }, 500);
+      }
+    } catch (err) {
+      hideTyping();
+      addBubble('Hubo un problema de conexión. Contáctame directamente: wa.me/525517051128 📲', 'bi');
+      console.error(err);
+    } finally {
+      loading = false;
+      document.getElementById('chat-send-btn').disabled = false;
+      inp.focus();
+    }
+  }
+
+  window.sendMsg = sendMsg; // para que el botón inline onclick="sendMsg()" siga funcionando
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const inp = document.getElementById('chat-input');
+    if (inp) inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+    });
   });
-});
 </script>
 </body>
 </html>
