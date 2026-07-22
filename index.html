@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Óscar Javier Vistrain · Agente de Seguros</title>
-<meta name="description" content="Agente de seguros certificado. Prudential, MetLife, Bupa y más de 9 aseguradoras de auto en México.">
+<meta name="description" content="Consultoría en protección y estrategia patrimonial. Análisis independiente para elegir el seguro de vida, salud, auto y ahorro que realmente te conviene.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -129,7 +129,8 @@ a{text-decoration:none;color:inherit}
 .agent-pill img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1px solid var(--gold)}
 .agent-pill span{font-size:.78rem;font-weight:500;color:var(--white);letter-spacing:.06em;text-transform:uppercase}
 .hero-h1{font-family:var(--f-d);font-size:clamp(4rem,9vw,8rem);line-height:.95;font-weight:300;letter-spacing:-.02em;margin-bottom:3rem;text-shadow:0 20px 40px rgba(0,0,0,.4)}
-.hero-h1 em{font-style:italic;color:transparent;background:linear-gradient(180deg,#fff 0%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text}
+.hero-h1 em{font-style:italic;color:transparent;background:linear-gradient(105deg,#fff2c0 0%,var(--gold) 35%,#fffde4 55%,var(--gold) 75%,#c9a84c 100%);background-size:250% auto;-webkit-background-clip:text;background-clip:text;animation:shimmerGold 5s linear infinite}
+@keyframes shimmerGold{to{background-position:-250% center}}
 .btn-epic{display:inline-flex;background:linear-gradient(135deg,var(--gold) 0%,#a6811a 100%);color:var(--deep);font-size:1.05rem;font-weight:600;padding:1.4rem 3.5rem;border-radius:100px;text-transform:uppercase;letter-spacing:.15em;transition:all .4s var(--ease);box-shadow:0 12px 35px rgba(201,168,76,.35),inset 0 2px 0 rgba(255,255,255,.3)}
 .btn-epic:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 20px 50px rgba(201,168,76,.5),inset 0 2px 0 rgba(255,255,255,.3)}
 .trust-bar{margin-top:6rem;display:flex;align-items:center;gap:3rem;background:rgba(1,21,61,.35);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.08);padding:1rem 3.5rem;border-radius:100px;box-shadow:0 20px 40px rgba(0,0,0,.3);width:100%;max-width:1200px;box-sizing:border-box}
@@ -439,6 +440,66 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
     height: 35px !important; 
   }
 }
+/* ============================================================  BURBUJA DE PENSAMIENTO (CALIBRADA)  */
+.thought-bubble {
+  position: absolute; 
+  top: 14%; /* Subimos la burbuja para despejar el título */
+  left: 15%; /* La movemos más a la izquierda, cerca de su cabeza */
+  z-index: 10;
+  max-width: 240px; /* Más angosta para que no choque con la palabra "Protege" */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 183, 90, 0.35);
+  border-radius: 28px; /* Un radio apenas más cerrado para verse proporcional */
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 20px rgba(229, 183, 90, 0.05);
+  pointer-events: none; 
+}
+
+/* Los pequeños círculos que forman la "colita" del pensamiento */
+.thought-bubble::before, 
+.thought-bubble::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 183, 90, 0.35);
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Escritorio: Apuntando hacia el dedo/cabeza (abajo a la izquierda) */
+@media(min-width: 769px) {
+  .thought-bubble::before {
+    width: 22px; height: 22px;
+    bottom: -18px; left: 25px; /* Movido un poco más al borde izquierdo */
+  }
+  .thought-bubble::after {
+    width: 10px; height: 10px;
+    bottom: -35px; left: 8px; /* Apuntando directo hacia él */
+  }
+}
+
+/* Celular: Centrada sobre Óscar */
+@media(max-width: 768px) {
+  .thought-bubble {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: none;
+  }
+  .thought-bubble::before {
+    width: 20px; height: 20px;
+    bottom: -15px; left: 30%;
+  }
+  .thought-bubble::after {
+    width: 10px; height: 10px;
+    bottom: -28px; left: 25%;
+  }
+}
 </style>
 </head>
 <body>
@@ -451,7 +512,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
     <li><a href="#services">Productos</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#chatbot">Chatbot IA</a></li>
-    <li><a href="#contacto" class="nav-cta">Cotizar ahora →</a></li>
+    <li><a href="#contacto" class="nav-cta">Agendar Asesoría →</a></li>
   </ul>
   <button class="nav-mb" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">☰</button>
 </nav>
@@ -459,41 +520,47 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
 <!-- ====================== HERO ====================== -->
 <section id="hero">
   <div class="hero-aurora"></div>
-      <img src="oscar_2.png" alt="Óscar Javier" class="hero-agent-img sr d2">
-        <div class="hero-particles">
-        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      </div>
+  
+  <!-- Imagen de Óscar -->
+  <img src="oscar_2.png" alt="Óscar Javier" class="hero-agent-img sr d2">
+  
+  <!-- ¡AQUÍ VA LA BURBUJA AHORA! Posición absoluta independiente -->
+  <div class="thought-bubble sr d1">
+    <p style="margin: 0; font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.05rem; color: #E2E8F0; line-height: 1.45; font-weight: 400; text-align: left;">
+      Asesoría patrimonial para quienes prefieren decidir con <strong style="color: #E5B75A; font-weight: 700;">información</strong>, no con miedo.
+    </p>
+  </div>
+
+  <div class="hero-particles">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  
   <div class="wrap hero-wrap">
-    <div class="hero-center">
+    <!-- El centro ahora queda súper limpio, solo Título y Botones -->
+    <div class="hero-center" style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
 
-      <div class="agent-pill sr">
+      <div class="agent-pill sr" style="margin-bottom: -1rem;">
         <img src="https://bio.linkcdn.cc/upload/2025091118/175761492100022597.jpg" alt="Óscar Javier">
-        
-        <span>Mercadologo - Agente de Seguros</span>
+        <span>Consultor en Protección Patrimonial</span>
       </div>
 
-      <h1 class="hero-h1 sr d1">
+      <h1 class="hero-h1 sr d1" style="margin: 0; line-height: 1.1;">
         Protege lo que<br><em>más importa</em>
       </h1>
-
-      <a href="#services" class="btn-epic sr d2">Cotiza tu futuro</a>
-
-      <div class="trust-bar sr d4">
-        <div class="wrap logos-track sr">
-          <div class="logo-set">
-            <img src="metlife.png" alt="MetLife" style="height:76px;">
-            <img src="bupa.png" alt="Bupa" style="height:86px;">
-            <img src="zurich.png" alt="Zurich" style="height: 110px;">
-            <img src="https://http2.mlstatic.com/storage/cx-support-fcm-api/fcm-pub-os-prod/cx-support-mario-frontend/marlreyes/logo-prudential.png" alt="Prudential" style="height: 30px;">
-            <img src="gnp.png" style="height: 30px;">
-            <img src="axa.png" alt="AXA" style="height: 70px;">
-          </div>
-        </div>
+      
+      <div style="margin-top: 1rem; margin-bottom: 2.5rem;">
+        <a href="#services" class="btn-epic sr d2">Conoce mi Metodología →</a>
       </div>
 
+      <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 100px; padding: 14px 32px; text-align: center; max-width: 650px; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);">
+        <p class="t-lead" style="margin:0; font-family: 'DM Sans', system-ui, sans-serif; font-size: 1rem; color: #94A3B8; font-weight: 400; letter-spacing: 0.2px;">
+          <span style="color: #E5B75A; font-size: 1.2rem; vertical-align: middle; margin-right: 4px;">✦</span> Trabajo en colaboración con las aseguradoras líderes del país
+        </p>
+      </div>
 
+    </div>
+  </div>
 </section>
-
 <!-- ====================== ABOUT ====================== -->
 <section id="about" class="sec sec--abyss">
   <div class="wrap">
@@ -509,21 +576,23 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
       </div>
       <div>
         <span class="eyebrow sr">Mi Historia</span>
-        <h2 class="t-d about-h sr d1">Tu futuro no es un<br>sueño es una <em>DECISION</em></h2>
-        <p class="t-lead sr d2">Soy Óscar Javier. Estudie la Lic. en Mercadotecnia porque desde niño me apasionan las ventas. Despues de 10 años de trabajar como Godin. Inicie en el Mundo de los Seguros con una mision clara: Identificar el ADN de mi cliente, estudiar y analizar las vantajas al igual que las desventajas de los diferentes tipos de seguros en Mexico para asi poder diseñar una estrategia inteligente en el proyecto de vida que requiere</p>
+        <h2 class="t-d about-h sr d1">El asesor que entiende<br>tu <em>realidad financiera</em></h2>
+        <p class="t-lead sr d2">Soy Óscar Javier, Licenciado en Mercadotecnia y, antes que nada, un ex-Godín. Durante 10 años viví el mundo corporativo: la nómina quincenal, las metas de fin de mes, la pregunta de qué hacer con el aguinaldo. Esa experiencia me enseñó algo que ninguna certificación enseña: cómo piensa realmente quien construye su patrimonio con un sueldo.
+
+Hoy uso esa mirada para hacer lo que un catálogo de pólizas no puede: identificar el ADN financiero de cada cliente, comparar con objetividad las opciones que existen en México y diseñar la estrategia que su proyecto de vida realmente necesita.</p>
         <p class="t-lead sr d2" style="margin-top:.9rem;">No vendo pólizas: diseño estrategias personalizadas para cada etapa de tu vida.</p>
         <div class="stats-grid">
           <div class="stat-c sr d2">
             <span class="stat-n">DAÑOS</span>
-            <span class="stat-l">Quálitas/ GNP / Zurich, HDI, Chubb</span>
+            <span class="stat-l">Comparo las mejores opciones del mercado</span>
           </div>
           <div class="stat-c sr d3">
             <span class="stat-n">VIDA</span>
-            <span class="stat-l">Prudential</span>
+            <span class="stat-l">Protección patrimonial directa</span>
           </div>
           <div class="stat-c sr d3">
             <span class="stat-n">SALUD</span>
-            <span class="stat-l">MetLife, Bupa</span>
+            <span class="stat-l">Cobertura médica a tu medida</span>
           </div>
           <div class="stat-c sr d4">
             <span class="stat-n">24/7</span>
@@ -540,7 +609,8 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
   <div class="wrap">
     <div class="srv-hd">
       <span class="eyebrow sr">Portafolio de productos</span>
-      <h2 class="t-d sr d1">Soluciones para <em>cada etapa</em><br>de tu vida</h2>
+      <h2 class="t-d sr d1">Un proceso de asesoría para <em>cada etapa</em><br>de tu vida</h2>
+      <p class="t-lead" style="max-width:600px;margin:1rem auto 0">No es un catálogo: es un proceso de análisis, comparación y diseño, pensado para tu momento de vida.</p>
     </div>
     <div class="srv-grid">
 
@@ -550,8 +620,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         <span class="srv-tag">Salud</span>
         <h3 class="srv-title">Gastos Médicos Mayores</h3>
         <div class="co-badges">
-          <span class="co-badge">MetLife</span>
-          <span class="co-badge">Bupa</span>
+        <span class="co-badge">🔍 Análisis de red hospitalaria</span>
         </div>
         <p class="srv-desc">Cobertura médica que realmente te respalda cuando más lo necesitas.</p>
         <ul class="srv-feats">
@@ -569,7 +638,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         <div class="srv-ico">❤️</div>
         <span class="srv-tag">Protección familiar</span>
         <h3 class="srv-title">Seguro de Vida</h3>
-        <div class="co-badges"><span class="co-badge">Prudential</span></div>
+        <div class="co-badges"><span class="co-badge">🎯 100% a tu medida</span></div>
         <p class="srv-desc">Garantiza el bienestar de tu familia ante cualquier eventualidad.</p>
         <ul class="srv-feats">
           <li>Protección Familiar Prudential</li>
@@ -586,7 +655,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         <div class="srv-ico">💰</div>
         <span class="srv-tag">Ahorro & inversión</span>
         <h3 class="srv-title">Ahorro & Retiro</h3>
-        <div class="co-badges"><span class="co-badge">Prudential</span></div>
+        <div class="co-badges"><span class="co-badge">📊 Proyección personalizada</span></div>
         <p class="srv-desc">Construye tu retiro y patrimonio con rendimientos garantizados y flexibilidad total.</p>
         <ul class="srv-feats">
           <li>Ahorro & Retiro Flexible</li>
@@ -595,7 +664,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
           <li>Aportaciones desde $1,000/mes</li>
           <li>Plan de Educación disponible</li>
         </ul>
-        <a href="#chatbot" class="srv-cta">Conocer más →</a>
+        <a href="#chatbot" class="srv-cta">Hablemos de tu caso →</a>
       </div>
 
       <!-- Auto -->
@@ -604,15 +673,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         <span class="srv-tag">Protección vehicular</span>
         <h3 class="srv-title">Seguro de Auto</h3>
         <div class="co-badges">
-          <span class="co-badge">Quálitas</span>
-          <span class="co-badge">Zurich</span>
-          <span class="co-badge">AXA</span>
-          <span class="co-badge">GNP</span>
-          <span class="co-badge">Mapfre</span>
-          <span class="co-badge">HDI</span>
-          <span class="co-badge">Chubb</span>
-          <span class="co-badge">Ana</span>
-          <span class="co-badge">Banorte</span>
+        <span class="co-badge">⚖️ Comparo el mercado por ti</span>
         </div>
         <p class="srv-desc">La mejor cobertura al mejor precio, con 9 aseguradoras comparadas.</p>
         <ul class="srv-feats">
@@ -622,7 +683,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
           <li>Responsabilidad civil ampliada</li>
           <li>Auto sustituto incluido</li>
         </ul>
-        <a href="#chatbot" class="srv-cta">Cotizar ahora →</a>
+        <a href="#chatbot" class="srv-cta">Hablemos de tu caso →</a>
       </div>
 
     </div>
@@ -634,26 +695,26 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
   <div class="wrap">
     <div style="text-align:center">
       <span class="eyebrow sr">Lo dicen nuestros clientes</span>
-      <h2 class="t-d sr d1" style="font-size:clamp(2rem,4vw,3rem);margin-top:.8rem;">Confianza que <em>se comparte</em></h2>
+      <h2 class="t-d sr d1" style="font-size:clamp(2rem,4vw,3rem);margin-top:.8rem;">Confianza que <em>se construye</em></h2>
     </div>
     <div class="test-grid">
       <div class="test-card sr d1">
         <div class="test-stars">★★★★★</div>
         <p class="test-txt">"Por primera vez entiendo exactamente a dónde va mi dinero. Oscar estructuró nuestro fondo familiar de ahorro y hoy tenemos tranquilidad real para el futuro de los niños."</p>
         <strong class="test-author">Alejandro D.</strong>
-        <em class="test-tag">· Fondos Prudential</em>
+        <em class="test-tag">· Estrategia de Ahorro Familiar</em>
       </div>
       <div class="test-card sr d2">
         <div class="test-stars">★★★★★</div>
         <p class="test-txt">"Tuve un accidente y la atención fue inmediata. Oscar se encargó de todo el papeleo con la aseguradora, sin que yo tuviera que pelearme con nadie."</p>
         <strong class="test-author">Mariana R.</strong>
-        <em class="test-tag">· Seguro Vehicular Zurich</em>
+        <em class="test-tag">· Gestión de Siniestro Vehicular</em>
       </div>
       <div class="test-card sr d3">
         <div class="test-stars">★★★★★</div>
         <p class="test-txt">"Contraté mi GMM con MetLife gracias a Oscar. Me explicó cada cláusula con paciencia y encontramos el plan perfecto para mi presupuesto y el de mi familia."</p>
         <strong class="test-author">Carmen V.</strong>
-        <em class="test-tag">· Gastos Médicos MetLife</em>
+        <em class="test-tag">· Cobertura de Gastos Médicos</em>
       </div>
     </div>
   </div>
@@ -707,8 +768,8 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         </div>
         <div class="blog-body">
           <div class="blog-meta"><span>1 jun, 2025</span><span>·</span><span>6 min</span></div>
-          <h3 class="blog-title">PPR Prudential vs. AFORE: ¿cuál crece más tu retiro?</h3>
-          <p class="blog-exc">Los Planes Personales de Retiro de Prudential tienen ventajas fiscales que el AFORE no puede ofrecer. La comparativa definitiva.</p>
+          <h3 class="blog-title">PPR vs. AFORE: ¿qué esquema hace crecer más tu retiro?</h3>
+          <p class="blog-exc">Los Planes Personales de Retiro (PPR) tienen ventajas fiscales que el AFORE tradicional no siempre ofrece. Aquí, la comparativa completa.</p>
           <a href="#" class="blog-lnk">Leer artículo →</a>
         </div>
       </div>
@@ -738,7 +799,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
     </div>
     
     <div class="chat-body" id="chat-body">
-      <div class="bubble bi">¡Hola! Soy el asistente de Óscar Javier. Te puedo orientar sobre seguros de auto, gastos médicos (MetLife & Bupa), vida y ahorro Prudential. ¿En qué te ayudo? 👋</div>
+      <div class="bubble bi">¡Hola! Soy el asistente de Óscar Javier. Te puedo orientar sobre seguros de auto, gastos médicos, vida y ahorro para el retiro. ¿En qué te ayudo? 👋</div>
     </div>
     
     <div class="chat-foot">
@@ -762,16 +823,20 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         <div class="faq-a">Solo necesitas marca, modelo, año y versión del vehículo, más tu código postal y fecha de nacimiento. En minutos tienes tu cotización con las 9 aseguradoras.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Desde cuánto puedo empezar a ahorrar con Prudential? <span class="faq-ico">▼</span></div>
-        <div class="faq-a">Puedes iniciar tu plan desde $1,000 MXN mensuales, con la opción de aumentar aportaciones cuando tu situación financiera mejore. Los planes de retiro son deducibles de impuestos (PPR).</div>
+        <div class="faq-q">¿Desde cuánto puedo empezar mi plan de ahorro para el retiro? <span class="faq-ico">▼</span></div>
+        <div class="faq-a">Puedes iniciar tu plan desde $1,000 MXN mensuales, con la opción de aumentar aportaciones cuando tu situación financiera mejore. Estos planes (PPR) son deducibles de impuestos.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">¿Cuál es la diferencia entre MetLife y Bupa para gastos médicos? <span class="faq-ico">▼</span></div>
-        <div class="faq-a">MetLife tiene mayor red médica y ofrece un Seguro Indemnizatorio. Bupa destaca por su red propia (Vitamédica, Hospital Bité Médica) y planes como Nacional Vital y Nacional Plus con cobertura internacional. Oscar te ayuda a elegir el mejor para tu perfil.</div>
+        <div class="faq-q">¿Cómo elijo la aseguradora correcta para mis gastos médicos? <span class="faq-ico">▼</span></div>
+        <div class="faq-a">Depende de tu presupuesto, tu red hospitalaria preferida y tu historial médico. En una asesoría sin costo, analizamos juntos tu perfil y te oriento hacia la opción que mejor se ajuste — sin presionarte hacia una marca en particular.</div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
         <div class="faq-q">¿Tienen cobertura nacional? <span class="faq-ico">▼</span></div>
         <div class="faq-a">Sí. Todas las aseguradoras con las que trabajo tienen red médica, talleres certificados y ajustadores en toda la República Mexicana.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">¿Por qué contratar a través de un asesor y no directo con la aseguradora? <span class="faq-ico">▼</span></div>
+        <div class="faq-a">Porque el costo es el mismo, pero tú ganas un análisis comparativo, acompañamiento en la gestión de siniestros y a alguien que revisa tu estrategia conforme cambia tu vida — no solo el día que firmas.</div>
       </div>
     </div>
   </div>
@@ -785,7 +850,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
       <h2 class="t-d cta-h2">Un agente real,<br><em>siempre contigo</em></h2>
       <p class="t-lead" style="max-width:480px;margin:0 auto">Sin compromisos, sin letra chica. Una conversación es el primer paso.</p>
       <div class="cta-actions">
-        <a href="https://wa.me/525517051128?text=Hola%20buen%20d%C3%ADa.%0AMe%20gustar%C3%ADa%20agendar%20una%20reuni%C3%B3n%20contigo." target="_blank" rel="noopener" class="btn btn-wa">📱 WhatsApp directo</a>
+        <a href="https://wa.me/525517051128?text=Hola%20Oscar%2C%20buen%20d%C3%ADa.%0AMe%20gustar%C3%ADa%20agendar%20mi%20Asesor%C3%ADa%20de%20Estrategia%20Patrimonial%2C%20sin%20costo." target="_blank" rel="noopener" class="btn btn-wa">📱 Agendar Asesoría sin Costo</a>
         <a href="tel:5517051128" class="btn btn-g">📞 Llamar ahora</a>
       </div>
       <div class="chips">
@@ -809,7 +874,7 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
         <li><a href="#chatbot">Chatbot</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
-      <p class="foot-copy">© 2025 Óscar Javier Vistrain · Agente de Seguros Certificado</p>
+      <p class="foot-copy">© 2025 Óscar Javier Vistrain · Consultor en Protección Patrimonial</p>
     </div>
   </div>
 </footer>
