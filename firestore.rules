@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Toda la lectura/escritura de "conversaciones" pasa por la Cloud Function
+    // (que usa el Admin SDK y no está sujeta a estas reglas).
+    // El cliente nunca necesita tocar Firestore directamente.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
