@@ -48,6 +48,8 @@ a{text-decoration:none;color:inherit}
 
 /* ============================================================  LAYOUT  */
 .wrap{max-width:1160px;margin:0 auto;padding:0 2.25rem}
+@media(max-width:600px){ .wrap { padding: 0 1.1rem; } }
+@media(max-width:380px){ .wrap { padding: 0 .85rem; } }
 .sec{padding:7rem 0}
 .sec--abyss{background:var(--abyss)}
 .sec--main{background:var(--main)}
@@ -171,38 +173,55 @@ a{text-decoration:none;color:inherit}
 @media(max-width: 768px) {
   .hero-agent-img {
     display: block;
-    left: -5%; /* Lo ancla hacia el lado izquierdo (puedes ajustar este valor) */
-    transform: none; /* Quitamos el forzado al centro */
-    height: 75vh; /* Se adapta a la altura del celular */
-    opacity: 0.95; /* Se mantiene como fondo sutil para no tapar lectura */
-    z-index: 1; /* Queda por detrás del texto */
-    object-position: left bottom; /* Asegura que la imagen se alinee a la izquierda y abajo */
+    left: -8%;
+    transform: none;
+    height: 70vh;
+    opacity: 0.9;
+    z-index: 1;
+    object-position: left bottom;
   }
-
   .hero-center {
     width: 100%;
     margin-left: 0;
-    padding-left: 30%; /* Deja libre el tercio izquierdo para la foto */
-    padding-right: 5%; /* Margen derecho de seguridad */
-    box-sizing: border-box; /* CLAVE: Obliga al texto a ajustarse como en Word sin salirse de la pantalla */
-    align-items: flex-end; /* Alinea el botón y la etiqueta hacia la derecha */
-    text-align: right; /* Alinea el texto a la derecha */
+    padding-left: 28%;
+    padding-right: 4%;
+    box-sizing: border-box;
+    align-items: flex-end;
+    text-align: right;
     position: relative;
     z-index: 2;
   }
-
   .hero-h1 {
-    font-size: clamp(2.5rem, 10vw, 3.5rem); /* Ajuste de tamaño para los 3 renglones */
+    font-size: clamp(2rem, 9vw, 3rem);
     line-height: 1.05;
-    word-wrap: break-word; /* Refuerza el ajuste de texto automático */
+    word-wrap: break-word;
     white-space: normal;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
-
   .btn-epic {
-    font-size: 0.82rem; /* Texto del botón más pequeño */
-    padding: 1rem 2.2rem; /* Reduce el tamaño del botón en móvil */
+    font-size: 0.75rem;
+    padding: .85rem 1.8rem;
+    letter-spacing: .1em;
   }
+  .agent-pill {
+    font-size: .65rem;
+  }
+  .agent-pill span {
+    font-size: .65rem;
+    letter-spacing: .04em;
+  }
+  /* Cita inferior del hero */
+  #hero .t-lead {
+    font-size: .78rem !important;
+    padding: 0 .5rem;
+  }
+}
+
+@media(max-width: 400px) {
+  .hero-agent-img { left: -15%; height: 65vh; opacity: .85; }
+  .hero-center { padding-left: 32%; }
+  .hero-h1 { font-size: clamp(1.7rem, 8vw, 2.5rem); }
+  .btn-epic { font-size: .7rem; padding: .75rem 1.4rem; }
 }
 
 /* ============================================================  PARTÍCULAS FLOTANTES  */
@@ -298,7 +317,12 @@ a{text-decoration:none;color:inherit}
 .co-badge{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.28rem .65rem;border-radius:50px}
 
 /* ============================================================  TESTIMONIALS  */
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem}
+@media(max-width:600px){
+  .test-grid { grid-template-columns: 1fr; }
+  .test-card { padding: 1.5rem; }
+  .test-txt  { font-size: .8rem; }
+}
 .test-card{background:rgba(255,255,255,.03);border:1px solid var(--border);padding:2rem;border-radius:var(--r)}
 .test-stars{color:var(--gold);margin-bottom:1rem;font-size:1.1rem}
 .test-txt{font-style:italic;color:var(--muted);line-height:1.65;margin-bottom:1.5rem;font-size:.84rem}
@@ -374,7 +398,12 @@ a{text-decoration:none;color:inherit}
 /* ============================================================  FAQ  */
 .faq-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem}
 .faq-item{background:var(--medium);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer}
-.faq-q{padding:1.4rem;display:flex;justify-content:space-between;font-weight:500;font-size:.92rem}
+.faq-q{padding:1.2rem 1.4rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;font-weight:500;font-size:.92rem;line-height:1.4}
+@media(max-width:600px){
+  .faq-q { font-size: .82rem; padding: 1rem; }
+  .faq-a { font-size: .78rem; }
+  .faq-list { margin-top: 2rem; }
+}
 .faq-a{padding:0 1.4rem;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;color:var(--muted);font-size:.82rem;line-height:1.65}
 .faq-item.open .faq-a{padding:0 1.4rem 1.4rem;max-height:200px}
 .faq-ico{transition:transform .3s;color:var(--gold)}
@@ -414,8 +443,43 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
 
 /* ============================================================  RESPONSIVE  */
 @media(max-width:1024px){.srv-grid{grid-template-columns:repeat(2,1fr)}.blog-grid{grid-template-columns:1fr 1fr}.blog-card:nth-child(3){display:none}}
-@media(max-width:960px){#nav{padding:1.1rem 1.5rem}.nav-links{display:none}.nav-mb{display:block}.about-grid,.chat-grid{grid-template-columns:1fr;gap:3rem}.about-badge{bottom:-.75rem;right:.75rem}.sec{padding:5rem 0}}
-@media(max-width:700px){.srv-grid{grid-template-columns:1fr}.blog-grid{grid-template-columns:1fr}.blog-card:nth-child(3){display:block}.trust-bar{flex-direction:column;border-radius:24px;padding:2.5rem;gap:1.5rem}.trust-div{width:100%;height:1px}.cta-inner{padding:3rem 1.5rem}.chips{flex-direction:column;align-items:center}.foot-in{flex-direction:column;align-items:flex-start}}
+@media(max-width:960px){
+  #nav{padding:1.1rem 1.5rem}
+  .nav-links{display:none}
+  .nav-mb{display:block}
+  .about-grid,.chat-grid{grid-template-columns:1fr;gap:3rem}
+  .about-badge{bottom:-.75rem;right:.75rem}
+  .sec{padding:5rem 0}
+}
+@media(max-width:700px){
+  .about-grid { gap: 2rem; }
+  .about-photo { aspect-ratio: 3/2; max-height: 280px; }
+  .about-badge { padding: .9rem 1.2rem; }
+  .badge-num { font-size: 2rem; }
+  .about-h { font-size: clamp(1.7rem, 5vw, 2.5rem); }
+  .stats-grid { grid-template-columns: 1fr; gap: .75rem; }
+  .stat-n { font-size: 1.4rem; }
+}
+@media(max-width:700px){
+  .srv-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .blog-card:nth-child(3){display:block}
+  .trust-bar{flex-direction:column;border-radius:24px;padding:2.5rem;gap:1.5rem}
+  .trust-div{width:100%;height:1px}
+  .cta-inner{padding:2.5rem 1.25rem}
+  .cta-h2{font-size:clamp(1.8rem,6vw,2.8rem)}
+  .cta-actions{flex-direction:column;align-items:stretch;gap:.75rem}
+  .cta-actions .btn{justify-content:center;text-align:center}
+  .chips{flex-direction:column;align-items:center;gap:1rem}
+  .chip{justify-content:center}
+  .foot-in{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .foot-links{flex-wrap:wrap;gap:1rem}
+  .foot-copy{font-size:.68rem}
+}
+@media(max-width:400px){
+  .cta-inner { padding: 2rem 1rem; }
+  .btn-wa, .btn-g { font-size: .82rem; padding: .75rem 1.2rem; }
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 /* ============================================================  MARQUEE SOLO CELULAR  */
 @media(max-width: 768px) {
@@ -514,22 +578,47 @@ footer{background:var(--abyss);border-top:1px solid var(--border);padding:2.75re
     <li><a href="#chatbot">Chatbot IA</a></li>
     <li><a href="#contacto" class="nav-cta">Agendar Asesoría →</a></li>
   </ul>
-  <button class="nav-mb" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">☰</button>
+  <button class="nav-mb" onclick="toggleMobileMenu()" aria-label="Menú">☰</button>
 </nav>
+
+<!-- MENÚ MÓVIL DESPLEGABLE -->
+<div id="mobile-menu" style="
+  position:fixed; inset:0; z-index:199;
+  background:rgba(1,14,40,.97);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:2.5rem;
+  opacity:0; pointer-events:none;
+  transform:translateY(-12px);
+  transition: opacity .35s ease, transform .4s cubic-bezier(.22,.68,0,1.1);
+">
+  <style>
+    #mobile-menu.open { opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important; }
+    #mobile-menu a { font-family:'Cormorant Garamond',Georgia,serif; font-size:2rem; font-weight:400; color:rgba(255,255,255,.8); letter-spacing:.04em; transition:color .2s; }
+    #mobile-menu a:hover { color:#c9a84c; }
+    #mobile-menu .mm-close { position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; color:#fff; font-size:1.6rem; cursor:pointer; opacity:.6; }
+    #mobile-menu .mm-close:hover { opacity:1; }
+    #mobile-menu .mm-wa { background:#25d366; color:#fff !important; font-family:'DM Sans',sans-serif !important; font-size:.9rem !important; font-weight:600 !important; padding:.85rem 2rem; border-radius:12px; margin-top:1rem; }
+  </style>
+  <button class="mm-close" onclick="toggleMobileMenu()">✕</button>
+  <a href="#about"    onclick="toggleMobileMenu()">Mi Perfil</a>
+  <a href="#services" onclick="toggleMobileMenu()">Productos</a>
+  <a href="#blog"     onclick="toggleMobileMenu()">Galería</a>
+  <a href="#faq"      onclick="toggleMobileMenu()">Preguntas</a>
+  <a href="https://wa.me/525517051128?text=Hola%20Óscar%2C%20me%20gustaría%20agendar%20una%20asesoría." target="_blank" class="mm-wa" onclick="toggleMobileMenu()">📱 Agendar Asesoría</a>
+</div>
 
 <!-- ====================== HERO ====================== -->
 <section id="hero">
   <div class="hero-aurora"></div>
   
-  <!-- Imagen de Óscar -->
-  <img src="oscar_2.png" alt="Óscar Javier" class="hero-agent-img sr d2">
+  
+<img src="oscar.png" alt="Óscar Javier" class="hero-agent-img sr d2" style="width: 750px; height: auto;">
   
   <!-- ¡AQUÍ VA LA BURBUJA AHORA! Posición absoluta independiente -->
-  <div class="thought-bubble sr d1">
-    <p style="margin: 0; font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.05rem; color: #E2E8F0; line-height: 1.45; font-weight: 400; text-align: left;">
-      Diseño estrategias inteligentes con proyectos de Aseguradoras Privadas. - Informacion clara, transparente y sin letras chiquitas, analizada para las distintas <strong style="color: #E5B75A; font-weight: 700;">generaciones
-    </p>
-  </div>
+  
 
   <div class="hero-particles">
     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -621,6 +710,22 @@ Mi filosofia profesional se basa en la confianza, la cercania y el compromiso de
 .scard-wrap {
   perspective: 1200px;
   height: 380px;
+}
+@media(max-width: 600px) {
+  .scard-wrap { height: 340px; }
+  .scard-front { padding: 1.5rem 1.25rem; gap: .75rem; }
+  .scard-glow { width: 90px; height: 90px; }
+  .scard-glow img { width: 72px; height: 72px; }
+  .scard-front h3 { font-size: 1.1rem; }
+  .scard-back { padding: 1.5rem 1.25rem; }
+  .scard-back h4 { font-size: 1.2rem; margin-bottom: .75rem; }
+  .scard-feats li { font-size: .72rem; }
+  .scard-wa { font-size: .78rem; padding: .75rem 1rem; }
+}
+@media(max-width: 400px) {
+  .scard-wrap { height: 320px; }
+  .scard-glow { width: 76px; height: 76px; }
+  .scard-glow img { width: 60px; height: 60px; }
 }
 .scard-inner {
   position: relative;
@@ -1433,14 +1538,21 @@ Mi filosofia profesional se basa en la confianza, la cercania y el compromiso de
 }
 
 @media(max-width: 600px) {
-  .cf-stage { height: 360px; perspective: 800px; }
-  .cf-card  { width: 200px; height: 265px; margin-top: -132px; margin-left: -100px; }
-
-  .cf-card[data-pos="1"]  { transform: translateX(175px) translateZ(-40px) rotateY(-38deg) scale(.82); opacity: .6; }
-  .cf-card[data-pos="-1"] { transform: translateX(-175px) translateZ(-40px) rotateY(38deg) scale(.82); opacity: .6; }
+  .cf-stage { height: 340px; perspective: 700px; }
+  .cf-card  { width: 190px; height: 255px; margin-top: -127px; margin-left: -95px; }
+  .cf-card[data-pos="1"]  { transform: translateX(155px) translateZ(-30px) rotateY(-35deg) scale(.8); opacity: .55; }
+  .cf-card[data-pos="-1"] { transform: translateX(-155px) translateZ(-30px) rotateY(35deg) scale(.8); opacity: .55; }
   .cf-card[data-pos="2"],
   .cf-card[data-pos="-2"] { opacity: 0; pointer-events: none; }
-  
+  .cf-title { font-size: .9rem; }
+  .cf-tag   { font-size: .52rem; }
+  .cf-btn   { width: 42px; height: 42px; font-size: 1.1rem; }
+}
+@media(max-width: 380px) {
+  .cf-stage { height: 310px; }
+  .cf-card  { width: 168px; height: 228px; margin-top: -114px; margin-left: -84px; }
+  .cf-card[data-pos="1"]  { transform: translateX(135px) translateZ(-20px) rotateY(-32deg) scale(.78); opacity: .45; }
+  .cf-card[data-pos="-1"] { transform: translateX(-135px) translateZ(-20px) rotateY(32deg) scale(.78); opacity: .45; }
 }
 </style>
 
@@ -1738,6 +1850,12 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:.1});
 document.querySelectorAll('.sr').forEach(el => obs.observe(el));
 /* ----  TOGGLE CHATBOT UI  ---- */
+/* ---- MENÚ MÓVIL ---- */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const isOpen = menu.classList.toggle('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
 function toggleChat() {
   const win = document.getElementById('chat-win');
   win.classList.toggle('active');
